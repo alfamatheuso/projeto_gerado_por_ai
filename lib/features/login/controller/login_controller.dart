@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 class LoginController {
-  final formKey = GlobalKey<FormState>();
-
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   void login() {
-    if (formKey.currentState!.validate()) {
-      // Implementar lógica do login
-    }
+    final email = emailController.text;
+    final password = passwordController.text;
+
+    print('Tentativa de login com email: $email');
   }
 
-  void navigateToRegister(BuildContext context) {
-    Navigator.pushNamed(context, '/register');
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
   }
 }
