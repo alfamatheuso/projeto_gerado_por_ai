@@ -1,32 +1,27 @@
 import 'package:flutter/material.dart';
 
 class RegisterController {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
-  String name = '';
-  String email = '';
-  String password = '';
+  void register() {
+    final email = emailController.text;
+    final password = passwordController.text;
+    final confirmPassword = confirmPasswordController.text;
 
-  void onChangedName(String value) {
-    name = value;
-  }
-
-  void onChangedEmail(String value) {
-    email = value;
-  }
-
-  void onChangedPassword(String value) {
-    password = value;
-  }
-
-  bool validate() {
-    return formKey.currentState?.validate() ?? false;
-  }
-
-  void submit() {
-    if (validate()) {
-      formKey.currentState?.save();
-      // lógica para cadastro aqui
+    if (password == confirmPassword) {
+      final newUser = RegisterModel(email: email, password: password, confirmPassword: confirmPassword);
+      
+      print('Usuário registrado: $email');
+    } else {
+      print('Senhas não conferem.');
     }
+  }
+
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
   }
 }
