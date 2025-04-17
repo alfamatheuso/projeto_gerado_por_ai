@@ -1,37 +1,48 @@
 import 'package:flutter/material.dart';
 import '../controller/login_controller.dart';
-import 'components/login_button.dart';
-import 'components/register_text.dart';
 
 class LoginPage extends StatelessWidget {
-  final LoginController _controller = LoginController();
+  final LoginController controller = LoginController();
+
+  LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Login")),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
-          key: _controller.formKey,
+          key: controller.formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextFormField(
-                controller: _controller.emailController,
-                decoration: InputDecoration(labelText: "Email"),
-                validator: (value) => value!.isEmpty ? "Digite o email" : null,
+                decoration: const InputDecoration(labelText: 'Email'),
+                validator: (value) => value!.isEmpty ? 'Informe um email' : null,
+                onChanged: controller.onChangedEmail,
               ),
               TextFormField(
-                controller: _controller.passwordController,
-                decoration: InputDecoration(labelText: "Senha"),
+                decoration: const InputDecoration(labelText: 'Senha'),
                 obscureText: true,
-                validator: (value) => value!.isEmpty ? "Digite a senha" : null,
+                validator: (value) => value!.length < 6 ? 'Mínimo 6 caracteres' : null,
+                onChanged: controller.onChangedPassword,
               ),
-              SizedBox(height: 20),
-              LoginButton(onPressed: _controller.login),
-              SizedBox(height: 10),
-              RegisterText(onPressed: () => _controller.navigateToRegister(context)),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  controller.login();
+                },
+                child: const Text('Login'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => RegisterPage()),
+                  );
+                },
+                child: const Text('Registrar-se'),
+              ),
             ],
           ),
         ),
