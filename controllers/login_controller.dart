@@ -1,19 +1,22 @@
-import '../models/login_model.dart';
-
 class LoginController {
-  final LoginModel model;
+  String email = '';
+  String password = '';
 
-  LoginController(this.model);
-
-  void updateUsername(String username) {
-    model.username = username;
+  void setEmail(String value) {
+    email = value;
   }
 
-  void updatePassword(String password) {
-    model.password = password;
+  void setPassword(String value) {
+    password = value;
   }
 
-  bool validateLogin() {
-    return model.username.isNotEmpty && model.password.isNotEmpty;
+  void login(BuildContext context) {
+    if (email.isNotEmpty && password.isNotEmpty) {
+      print("Login realizado com sucesso: $email");
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Preencha todos os campos corretamente!')),
+      );
+    }
   }
 }
