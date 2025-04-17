@@ -1,12 +1,8 @@
-class LoginRepository {
-  final ApiService apiService = ApiService();
+import '../model/register_model.dart';
 
-  Future<bool> login(LoginModel loginModel) async {
-    final response = await apiService.post('/login', loginModel.toJson());
-    if (response.statusCode == 200) {
-      return true;
-    } else {
-      return false;
-    }
+class LoginRepository {
+  Future<bool> registerUser(RegisterModel user) async {
+    await Future.delayed(const Duration(seconds: 2));
+    return true;
   }
 }
